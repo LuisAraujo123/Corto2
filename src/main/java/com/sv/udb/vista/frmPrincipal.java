@@ -34,6 +34,9 @@ public class frmPrincipal extends javax.swing.JFrame {
         this.txtDesc_sere.setText("");
         this.txtNomb_sere.setText("");
         this.llenCmb();
+        this.btnElim.setVisible(false);
+        this.btnGuar.setVisible(true);
+        this.btnModi.setVisible(false);
     }
     
     
@@ -183,12 +186,11 @@ public class frmPrincipal extends javax.swing.JFrame {
                                     .addComponent(btnGuar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(btnModi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnElim)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                        .addComponent(btnNuev, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(btnCons)))))
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(btnElim, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
+                                    .addComponent(btnNuev, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)
+                                .addComponent(btnCons)))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -219,16 +221,14 @@ public class frmPrincipal extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbSersVivs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGuar)
                     .addComponent(btnNuev)
-                    .addComponent(btnCons))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCons)
                     .addComponent(btnModi)
                     .addComponent(btnElim))
-                .addGap(26, 26, 26))
+                .addGap(30, 30, 30))
         );
 
         tblSersVivs.setModel(new javax.swing.table.DefaultTableModel(
@@ -270,8 +270,8 @@ public class frmPrincipal extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -311,6 +311,9 @@ public class frmPrincipal extends javax.swing.JFrame {
                     {
                         JOptionPane.showMessageDialog(this, "Datos guardados");
                         this.actTab();
+                        this.btnElim.setVisible(false);
+                        this.btnGuar.setVisible(true);
+                        this.btnModi.setVisible(false);
                     }
                     else
                     {
@@ -353,10 +356,21 @@ public class frmPrincipal extends javax.swing.JFrame {
                 SeresVivos obje = (SeresVivos)this.tblSersVivs.getValueAt(fila, 0);
                 this.txtcodi_sere.setText(String.valueOf(obje.getCodi_sere()));
                 this.txtNomb_sere.setText(obje.getNomb_sere());
-                this.cmbSersVivs.setEditable(true); 
-                this.cmbSersVivs.setSelectedItem((SeresVivos)new seresVivosCtrl().consUno(obje.getCodi_refe_sere()));
+                this.cmbSersVivs.setEditable(true);
+                SeresVivos sele = (SeresVivos)new seresVivosCtrl().consUno(obje.getCodi_refe_sere());
+                if (sele.getNomb_sere() == null)
+                {
+                    this.cmbSersVivs.setSelectedIndex(0);
+                }
+                else
+                {
+                    this.cmbSersVivs.setSelectedItem(sele);
+                }
                 this.cmbSersVivs.setEditable(false);
                 this.txtDesc_sere.setText(obje.getDesc_sere());
+                this.btnGuar.setVisible(false);
+                this.btnElim.setVisible(true);
+                this.btnModi.setVisible(true);
             }
         } catch (Exception ex) {
             System.err.println("Error: " + ex.getMessage());
@@ -365,6 +379,9 @@ public class frmPrincipal extends javax.swing.JFrame {
 
     private void btnNuevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevActionPerformed
         this.limp();
+        this.btnElim.setVisible(false);
+        this.btnGuar.setVisible(true);
+        this.btnModi.setVisible(false);
     }//GEN-LAST:event_btnNuevActionPerformed
 
     private void btnElimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnElimActionPerformed
@@ -380,6 +397,9 @@ public class frmPrincipal extends javax.swing.JFrame {
                         {
                             JOptionPane.showMessageDialog(this, "Datos Eliminados");
                             this.actTab();
+                            this.btnElim.setVisible(false);
+                            this.btnGuar.setVisible(true);
+                            this.btnModi.setVisible(false);
                         }
                         else
                         {
@@ -417,6 +437,9 @@ public class frmPrincipal extends javax.swing.JFrame {
                     {
                         JOptionPane.showMessageDialog(this, "Datos guardados");
                         this.actTab();
+                        this.btnElim.setVisible(false);
+                        this.btnGuar.setVisible(true);
+                        this.btnModi.setVisible(false);
                     }
                     else
                     {
